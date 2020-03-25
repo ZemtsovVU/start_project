@@ -1,4 +1,4 @@
-package com.zemtsov.startproject.data.repository
+package com.zemtsov.startproject.data.repository.session
 
 import com.zemtsov.startproject.data.entity.SessionInfo
 

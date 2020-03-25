@@ -1,4 +1,4 @@
-package com.zemtsov.startproject.data.repository
+package com.zemtsov.startproject.data.repository.users
 
 import com.zemtsov.startproject.data.entity.User
 import com.zemtsov.startproject.data.source.remote.UsersRestClient

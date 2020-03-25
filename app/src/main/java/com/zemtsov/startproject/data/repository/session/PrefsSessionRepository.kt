@@ -1,4 +1,4 @@
-package com.zemtsov.startproject.data.repository
+package com.zemtsov.startproject.data.repository.session
 
 import android.content.Context
 import android.content.SharedPreferences

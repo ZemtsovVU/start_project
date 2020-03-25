@@ -1,4 +1,4 @@
-package com.zemtsov.startproject.data.repository
+package com.zemtsov.startproject.data.repository.users
 
 import com.zemtsov.startproject.data.entity.User
 import io.reactivex.Single

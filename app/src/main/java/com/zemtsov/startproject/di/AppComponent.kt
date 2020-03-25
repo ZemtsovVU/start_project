@@ -1,7 +1,7 @@
 package com.zemtsov.startproject.di
 
-import com.zemtsov.startproject.data.repository.SessionRepository
-import com.zemtsov.startproject.data.repository.UsersRepository
+import com.zemtsov.startproject.data.repository.session.SessionRepository
+import com.zemtsov.startproject.data.repository.users.UsersRepository
 import dagger.Component
 import javax.inject.Singleton
 
