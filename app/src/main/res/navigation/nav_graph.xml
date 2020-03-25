@@ -10,7 +10,11 @@
         android:label="UserListFragment">
         <action
             android:id="@+id/action_userListFragment_to_userDetailsFragment"
-            app:destination="@id/userDetailsFragment" />
+            app:destination="@id/userDetailsFragment">
+            <argument
+                android:name="user"
+                app:argType="com.zemtsov.startproject.data.entity.User" />
+        </action>
     </fragment>
 
     <fragment

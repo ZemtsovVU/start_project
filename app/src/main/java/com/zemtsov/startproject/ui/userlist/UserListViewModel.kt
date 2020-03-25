@@ -1,6 +1,5 @@
 package com.zemtsov.startproject.ui.userlist
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,11 +29,6 @@ class UserListViewModel : ViewModel() {
     private val _usersLiveData = MutableLiveData<Resource<List<User>>>()
     val usersLiveData: LiveData<Resource<List<User>>> get() = _usersLiveData
 
-//    val onDetailsButtonClickListener = View.OnClickListener {
-//        val action = UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment()
-//        navController!!.navigate(action)
-//    }
-
     init {
         AppComponentHolder.component().inject(this)
 
@@ -46,6 +40,12 @@ class UserListViewModel : ViewModel() {
                 { _usersLiveData.value = Resource.success(it) },
                 { _usersLiveData.value = Resource.error(it) }
             )
+    }
+
+    // TODO: Need to pass user_id if use database of another cache variants
+    fun onUserClick(user: User) {
+        val action = UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment(user)
+        navController!!.navigate(action) // !! fail-fast behavior (https://en.wikipedia.org/wiki/Fail-fast)
     }
 
     override fun onCleared() {

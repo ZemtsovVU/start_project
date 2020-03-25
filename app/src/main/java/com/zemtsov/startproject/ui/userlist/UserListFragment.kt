@@ -1,7 +1,6 @@
 package com.zemtsov.startproject.ui.userlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,11 +42,12 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.navController = findNavController()
+
         val userListAdapter = UserListRecyclerAdapter()
         userListAdapter.onItemClickListener = object : OnItemClickListener<User> {
             override fun onItemClick(itemView: View, position: Int, item: User?) {
-                Log.d("UserListFragment", item.toString())
-                // TODO
+                item?.let { viewModel.onUserClick(it) }
             }
         }
 
@@ -57,28 +57,26 @@ class UserListFragment : Fragment() {
             addItemDecoration(MarginItemDecoration(R.dimen.size_xsmall))
         }
 
-        viewModel.navController = findNavController()
-
         viewModel.usersLiveData.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 LOADING -> {
-                     setProgressViewEnabled(true) // Need to show progress as a type of recycler cell
-                     setEmptyViewEnabled(false)
+                    setProgressViewEnabled(true) // Need to show progress as a type of recycler cell
+                    setEmptyViewEnabled(false)
                 }
                 SUCCESS -> {
                     if (it.data == null || it.data.isEmpty()) {
-                         setProgressViewEnabled(false)
-                         setEmptyViewEnabled(true)
+                        setProgressViewEnabled(false)
+                        setEmptyViewEnabled(true)
                         showMessage(getString(R.string.empty_users))
                     } else {
-                         setProgressViewEnabled(false)
-                         setEmptyViewEnabled(false)
+                        setProgressViewEnabled(false)
+                        setEmptyViewEnabled(false)
                         userListAdapter.setItems(it.data)
                     }
                 }
                 ERROR -> {
-                     setProgressViewEnabled(false)
-                     setEmptyViewEnabled(true)
+                    setProgressViewEnabled(false)
+                    setEmptyViewEnabled(true)
                     it.error?.let { showMessage(it.localizedMessage) }
                 }
             }
@@ -86,12 +84,12 @@ class UserListFragment : Fragment() {
     }
 
     // Just for example
-    private fun setProgressViewEnabled(enabled : Boolean) {
+    private fun setProgressViewEnabled(enabled: Boolean) {
         viewBinding.progressBar.visibility = if (enabled) View.VISIBLE else View.GONE
     }
 
     // Just for example
-    private fun setEmptyViewEnabled(enabled : Boolean) {
+    private fun setEmptyViewEnabled(enabled: Boolean) {
         viewBinding.emptyTextView.visibility = if (enabled) View.VISIBLE else View.GONE
     }
 
