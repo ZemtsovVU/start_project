@@ -30,10 +30,10 @@ class UserListViewModel : ViewModel() {
     private val _usersLiveData = MutableLiveData<Resource<List<User>>>()
     val usersLiveData: LiveData<Resource<List<User>>> get() = _usersLiveData
 
-    val onDetailsButtonClickListener = View.OnClickListener {
-        val action = UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment()
-        navController!!.navigate(action)
-    }
+//    val onDetailsButtonClickListener = View.OnClickListener {
+//        val action = UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment()
+//        navController!!.navigate(action)
+//    }
 
     init {
         AppComponentHolder.component().inject(this)
