@@ -1,4 +1,4 @@
-package com.zemtsov.startproject.data.source.remote
+package com.zemtsov.startproject.data.source.remote.endpoint
 
 import com.zemtsov.startproject.util.consts.RestOptions
 

@@ -3,8 +3,9 @@ package com.zemtsov.startproject.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.zemtsov.startproject.data.repository.SessionRepository
-import com.zemtsov.startproject.data.source.remote.ServerEndpoint
-import com.zemtsov.startproject.data.source.remote.SimpleServerEndpoint
+import com.zemtsov.startproject.data.source.remote.UsersRestClient
+import com.zemtsov.startproject.data.source.remote.endpoint.ServerEndpoint
+import com.zemtsov.startproject.data.source.remote.endpoint.SimpleServerEndpoint
 import com.zemtsov.startproject.util.consts.DateConst
 import com.zemtsov.startproject.util.consts.RestOptions
 import dagger.Module
@@ -27,11 +28,11 @@ import javax.inject.Singleton
 @Module
 class RetrofitModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideUsersRestClient(retrofit: Retrofit): UsersRestClient {
-//        return retrofit.create(UsersRestClient::class.java)
-//    }
+    @Singleton
+    @Provides
+    fun provideUsersRestClient(retrofit: Retrofit): UsersRestClient {
+        return retrofit.create(UsersRestClient::class.java)
+    }
 
 //  @Singleton
 //  @Provides

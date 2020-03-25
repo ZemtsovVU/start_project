@@ -1,4 +1,4 @@
-package com.zemtsov.startproject.data.source.remote
+package com.zemtsov.startproject.data.source.remote.endpoint
 
 /**
  * Developed by Viktor Zemtsov (zemtsovvu@gmail.com)
