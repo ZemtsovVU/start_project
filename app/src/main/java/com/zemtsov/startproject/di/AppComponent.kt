@@ -15,9 +15,9 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, RetrofitModule::class, RepositoryModule::class])
 interface AppComponent {
 
+//    fun inject(injectable: UserListViewModel)
+
     fun sessionRepository(): SessionRepository
 
     fun usersRepository(): UsersRepository
-
-//    fun inject(injectable: UserListViewModel)
 }
