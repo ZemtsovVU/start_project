@@ -15,6 +15,7 @@ import javax.inject.Inject
  */
 class UserUseCase @Inject constructor(private val usersRepository: UsersRepository) {
 
+    // TODO: Change to Kotlin coroutines impl. Rx impl just for example
     fun execute(login: String): Single<User> {
         return usersRepository.user(login)
     }

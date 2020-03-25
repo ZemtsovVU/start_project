@@ -2,6 +2,7 @@ package com.zemtsov.startproject.di
 
 import com.zemtsov.startproject.data.repository.session.SessionRepository
 import com.zemtsov.startproject.data.repository.users.UsersRepository
+import com.zemtsov.startproject.ui.userlist.UserListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, RetrofitModule::class, RepositoryModule::class])
 interface AppComponent {
 
-//    fun inject(injectable: UserListViewModel)
+    fun inject(injectable: UserListViewModel)
 
     fun sessionRepository(): SessionRepository
 

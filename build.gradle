@@ -51,6 +51,9 @@ ext {
     retrofitVersion = '2.3.0'
     okHttpVersion = '4.4.0'
 
+    rxJavaVersion = '2.2.19'
+    rxAndroidVersion = '2.1.1'
+
     junitVersion = '4.12'
 
     androidXTestJunitVersion = '1.1.1'
