@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.zemtsov.startproject.databinding.FragmentUserDetailsBinding
 
 /**
@@ -22,6 +25,8 @@ class UserDetailsFragment : Fragment() {
 
     private val viewModel: UserDetailsViewModel by viewModels()
 
+    private val args: UserDetailsFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +39,15 @@ class UserDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.navController = findNavController()
+        viewModel.setUser(args.user)
+
+        viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
+            Glide.with(this)
+                .load(it.avatarUrl)
+                .into(viewBinding.avatarImageView)
+
+            viewBinding.nameTextView.text = it.login
+        })
     }
 
     override fun onDestroyView() {
