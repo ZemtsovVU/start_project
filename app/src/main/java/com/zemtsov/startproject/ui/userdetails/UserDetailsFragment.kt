@@ -20,8 +20,7 @@ import com.zemtsov.startproject.databinding.FragmentUserDetailsBinding
  */
 class UserDetailsFragment : Fragment() {
 
-    private var _viewBinding: FragmentUserDetailsBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private lateinit var viewBinding: FragmentUserDetailsBinding
 
     private val viewModel: UserDetailsViewModel by viewModels()
 
@@ -32,12 +31,13 @@ class UserDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewBinding = FragmentUserDetailsBinding.inflate(inflater, container, false)
+        viewBinding = FragmentUserDetailsBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.navController = findNavController()
         viewModel.setUser(args.user)
 
@@ -48,10 +48,5 @@ class UserDetailsFragment : Fragment() {
 
             viewBinding.nameTextView.text = it.login
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _viewBinding = null
     }
 }

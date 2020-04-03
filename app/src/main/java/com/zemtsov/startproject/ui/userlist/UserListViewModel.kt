@@ -7,7 +7,10 @@ import androidx.navigation.NavController
 import com.zemtsov.startproject.data.entity.User
 import com.zemtsov.startproject.di.AppComponentHolder
 import com.zemtsov.startproject.domain.UsersUseCase
+import com.zemtsov.startproject.ui.base.Error
+import com.zemtsov.startproject.ui.base.Loading
 import com.zemtsov.startproject.ui.base.Resource
+import com.zemtsov.startproject.ui.base.Success
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -35,17 +38,17 @@ class UserListViewModel : ViewModel() {
         usersDisposable = usersUseCase.execute()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { _usersLiveData.value = Resource.loading() }
+            .doOnSubscribe { _usersLiveData.value = Loading }
             .subscribe(
-                { _usersLiveData.value = Resource.success(it) },
-                { _usersLiveData.value = Resource.error(it) }
+                { _usersLiveData.value = Success(it) },
+                { _usersLiveData.value = Error(it) }
             )
     }
 
     // TODO: Need to pass user_id if use database of another cache variants
     fun onUserClick(user: User) {
         val action = UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment(user)
-        navController!!.navigate(action) // !! fail-fast behavior (https://en.wikipedia.org/wiki/Fail-fast)
+        navController?.navigate(action)
     }
 
     override fun onCleared() {

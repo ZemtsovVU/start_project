@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
  * @author Viktor Zemtsov
  */
 object KeyboardUtil {
+
     fun showKeyboard(view: View) = showSoftInput(view)
 
     fun hideKeyboard(anchorView: View) = hideSoftInputFromWindow(anchorView)
@@ -23,14 +24,14 @@ fun View.hideKeyboard() = hideSoftInputFromWindow(this)
 private fun showSoftInput(view: View) {
     val context = view.context.applicationContext
     if (view.requestFocus()) {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 }
 
 private fun hideSoftInputFromWindow(anchorView: View) {
     val context = anchorView.context.applicationContext
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     val windowToken = anchorView.windowToken
-    imm.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    imm?.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 }

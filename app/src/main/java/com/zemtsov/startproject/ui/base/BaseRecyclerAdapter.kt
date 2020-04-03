@@ -12,7 +12,6 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
 
     private val items = mutableListOf<T>()
 
-    @Synchronized
     fun getItem(position: Int): T? {
         return try {
             items[position]
@@ -21,12 +20,10 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         }
     }
 
-    @Synchronized
     fun getItems(): List<T> {
         return items
     }
 
-    @Synchronized
     fun setItem(position: Int, item: T?) {
         item?.let {
             if (items.size > position) {
@@ -38,7 +35,6 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         }
     }
 
-    @Synchronized
     fun setItems(items: List<T>?) {
         items?.let {
             this.items.clear()
@@ -47,7 +43,6 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         }
     }
 
-    @Synchronized
     fun addItem(item: T?) {
         item?.let {
             items.add(item)
@@ -56,7 +51,6 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         }
     }
 
-    @Synchronized
     fun addItems(items: List<T>?) {
         items?.let {
             val positionStart = this.items.size
@@ -66,7 +60,6 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         }
     }
 
-    @Synchronized
     fun removeItem(item: T?) {
         item?.let {
             val removeIndex = items.indexOf(item)
@@ -78,13 +71,12 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         }
     }
 
-    @Synchronized
     fun clearItems() {
         this.items.clear()
         notifyDataSetChanged()
     }
 
     companion object {
-        private val INDEX_INVALID = -1
+        private const val INDEX_INVALID = -1
     }
 }

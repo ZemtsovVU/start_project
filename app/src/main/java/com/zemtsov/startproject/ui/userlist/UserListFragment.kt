@@ -13,9 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.zemtsov.startproject.R
 import com.zemtsov.startproject.data.entity.User
 import com.zemtsov.startproject.databinding.FragmentUserListBinding
-import com.zemtsov.startproject.ui.base.MarginItemDecoration
-import com.zemtsov.startproject.ui.base.OnItemClickListener
-import com.zemtsov.startproject.ui.base.Resource.Status.*
+import com.zemtsov.startproject.ui.base.*
 
 /**
  * Developed by Viktor Zemtsov (zemtsovvu@gmail.com)
@@ -25,8 +23,7 @@ import com.zemtsov.startproject.ui.base.Resource.Status.*
  */
 class UserListFragment : Fragment() {
 
-    private var _viewBinding: FragmentUserListBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private lateinit var viewBinding: FragmentUserListBinding
 
     private val viewModel: UserListViewModel by viewModels()
 
@@ -35,7 +32,7 @@ class UserListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewBinding = FragmentUserListBinding.inflate(inflater, container, false)
+        viewBinding = FragmentUserListBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
 
@@ -58,13 +55,13 @@ class UserListFragment : Fragment() {
         }
 
         viewModel.usersLiveData.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                LOADING -> {
+            when (it) {
+                is Loading -> {
                     setProgressViewEnabled(true) // Need to show progress as a type of recycler cell
                     setEmptyViewEnabled(false)
                 }
-                SUCCESS -> {
-                    if (it.data == null || it.data.isEmpty()) {
+                is Success -> {
+                    if (it.data.isEmpty()) {
                         setProgressViewEnabled(false)
                         setEmptyViewEnabled(true)
                         showMessage(getString(R.string.empty_users))
@@ -74,10 +71,10 @@ class UserListFragment : Fragment() {
                         userListAdapter.setItems(it.data)
                     }
                 }
-                ERROR -> {
+                is Error -> {
                     setProgressViewEnabled(false)
                     setEmptyViewEnabled(true)
-                    it.error?.let { showMessage(it.localizedMessage) }
+                    showMessage(it.error.localizedMessage)
                 }
             }
         })
@@ -103,10 +100,5 @@ class UserListFragment : Fragment() {
                     .show()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _viewBinding = null
     }
 }
